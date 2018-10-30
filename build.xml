@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="junit" name="Shell">
+
+	<property environment="env" />
+
+	<path id="test.classpath">
+		<pathelement path="${env.JUNIT}" />
+		<pathelement path="${env.HAMCREST_CORE}" />
+
+	</path>
+
+	<path id="test.classpath1">
+		<pathelement path="${env.JUNIT}" />
+		<pathelement path="${env.HAMCREST_CORE}" />
+		<pathelement path="bin" />
+		<pathelement path="test/bin" />
+	</path>
+
+
+	<target name="run" depends="compile">
+		<java classname="edu.umb.cs.cs680.hw11.Shell">
+			<classpath path="bin" />
+		</java>
+	</target>
+
+	<target name="junit" depends="compile">
+		<junit printsummary="yes" showoutput="true" dir="test/bin">
+			<classpath refid="test.classpath1" />
+		
+			<batchtest fork="yes">
+				<fileset dir="test/bin">
+					<include name="**/*Test.class" />
+				</fileset>
+			</batchtest>
+
+		</junit>
+
+	</target>
+
+	<target name="compile">
+
+		<delete dir="bin" />
+		<mkdir dir="bin" />
+
+		<javac srcdir="src" destdir="bin">
+
+
+
+		</javac>
+		<delete dir="test/bin" />
+		<mkdir dir="test/bin" />
+		<javac srcdir="test/src" destdir="test/bin">
+
+			<classpath refid="test.classpath1" />
+
+		</javac>
+
+	</target>
+
+</project>
